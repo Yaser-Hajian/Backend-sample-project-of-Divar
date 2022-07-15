@@ -8,6 +8,7 @@ import {
 } from '@prisma/client/runtime';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { SignInDto } from './dto/sign-in.dto';
 @Injectable()
 export class AuthService {
   constructor(
@@ -16,12 +17,24 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
+  async signin(dto: SignInDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        username: dto.username,
+      },
+    });
+    if (!user) {
+      throw new ForbiddenException('Credentials incorrect.');
+    }
+    const passworMatche = await bcrypt.compare(dto.password, user.hash);
+    if (!passworMatche) {
+      throw new ForbiddenException('Credentials incorrect.');
+    }
+    return this.getJwtToken(user.id);
+  }
+
   async signup(dto: SignUpDto) {
     const saltRounds = 10;
-    // await bcrypt.hash(dto.password, 10 , (error , hash)=>{
-    //     myHash = hash;
-    // });
-
     const myHash = await bcrypt.hash(dto.password, saltRounds);
     try {
       const user = await this.prisma.user.create({
