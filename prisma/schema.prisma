@@ -31,16 +31,12 @@ model Post {
   Description     String?
   pictures        String[]
   tags            String[]
-  isCarPost       Boolean
-  isHousePost     Boolean
-  isFurniturePost Boolean
   user            User     @relation("posts of user", fields: [userID], references: [id])
   userID          String
   userWhoStared   User     @relation("stared posts of user", fields: [userStaredID], references: [id])
   userStaredID    String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-
   carPost       CarPost?
   housePost     HousePost?
   furniturePost FurniturePost?
