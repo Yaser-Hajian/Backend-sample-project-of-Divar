@@ -7,43 +7,52 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async getCarPosts(user: User) {
-    const carPosts = await this.prisma.carPost.findMany({
-      where: {
-        post: {
-          userID: user.id,
-        },
+    const carPosts = await this.prisma.post.findMany({
+      include : {
+        carPost : true
       },
+      where : {
+        userID : user.id
+      }
     });
     return carPosts;
   }
 
   async getHousePosts(user: User) {
-    const housePosts = await this.prisma.housePost.findMany({
-      where: {
-        post: {
-          userID: user.id,
+    const housePosts = await this.prisma.post.findMany({
+        include : {
+          housePost : true
         },
-      },
-    });
+        where : {
+          userID : user.id
+        }
+      });
     return housePosts;
   }
 
   async getFurniturePosts(user: User) {
-    const furniturePosts = await this.prisma.furniturePost.findMany({
-      where: {
-        post: {
-          userID: user.id,
+    const furniturePosts = await this.prisma.post.findMany({
+        include : {
+          furniturePost : true
         },
-      },
-    });
+        where : {
+          userID : user.id
+        }
+      });
     return furniturePosts;
   }
 
   async getAllPosts(user: User) {
-    const car = await this.getCarPosts(user);
-    const furniture = await this.getFurniturePosts(user);
-    const house = await this.getHousePosts(user)
-    let posts = [...car , ...house , ...furniture]
-    return posts;
+    const allPosts = await this.prisma.post.findMany({
+        include : {
+            carPost:true,
+            housePost:true,
+            furniturePost:true,
+        },
+        where : {
+            userID : user.id
+          }
+    })
+    return allPosts;
   }
 }
