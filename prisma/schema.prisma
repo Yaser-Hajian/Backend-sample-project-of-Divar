@@ -47,8 +47,8 @@ model CarPost {
   usage          BigInt
   color          String
   model          String
-  motorCondition String
-  gearbox        String
+  motorCondition String?
+  gearbox        String?
   post           Post   @relation(fields: [postID], references: [id])
   postID         String @unique
 }
