@@ -19,5 +19,62 @@ model User {
   city        String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  posts       Post[]   @relation("posts of user")
+  staredPosts Post[]   @relation("stared posts of user")
+}
 
+model Post {
+  id              String   @id @default(uuid())
+  title           String
+  city            String
+  price           BigInt?
+  Description     String?
+  pictures        String[]
+  tags            String[]
+  isCarPost       Boolean
+  isHousePost     Boolean
+  isFurniturePost Boolean
+  user            User     @relation("posts of user", fields: [userID], references: [id])
+  userID          String
+  userWhoStared   User     @relation("stared posts of user", fields: [userStaredID], references: [id])
+  userStaredID    String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  carPost       CarPost?
+  housePost     HousePost?
+  furniturePost FurniturePost?
+}
+
+model CarPost {
+  id             String @id @default(uuid())
+  usage          BigInt
+  color          String
+  model          String
+  motorCondition String
+  gearbox        String
+  post           Post   @relation(fields: [postID], references: [id])
+  postID         String @unique
+}
+
+model HousePost {
+  id                  String  @id @default(uuid())
+  area                Int
+  yearOfBuild         Int
+  pricePerMeter       Int?
+  numberOfRooms       Int
+  numberOfTotalFloors Int
+  numberOfFloor       Int
+  hasElavator         Boolean
+  hasParking          Boolean
+  post                Post    @relation(fields: [postID], references: [id])
+  postID              String  @unique
+}
+
+model FurniturePost {
+  id        String @id @default(uuid())
+  brand     String
+  condition String
+  post      Post   @relation(fields: [postID], references: [id])
+  postID    String @unique
 }
