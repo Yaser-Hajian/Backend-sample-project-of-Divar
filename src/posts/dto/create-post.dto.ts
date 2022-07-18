@@ -16,7 +16,7 @@ export class CreatePostDto {
   @IsNotEmpty()
   city: string;
 
-  @IsNumber()
+  @IsString()
   @IsOptional()
   price: number;
 

@@ -9,9 +9,9 @@ export class CreateCarPostsDto {
   @IsNotEmpty()
   city: string;
 
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  price: number;
+  price: string;
 
   @IsString()
   @IsOptional()
@@ -27,9 +27,9 @@ export class CreateCarPostsDto {
   @IsString({ each: true })
   tags: string[];
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  usage: number;
+  usage: string;
 
   @IsString()
   @IsNotEmpty()
