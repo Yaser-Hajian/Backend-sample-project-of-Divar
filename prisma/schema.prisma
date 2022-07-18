@@ -29,7 +29,7 @@ model Admin {
   username          String @unique
   hash              String
   responsibility    String
-  incommingRequests Post[]
+  incomingRequests Post[]
   role              Role   @default(ADMIN)
 }
 
@@ -41,17 +41,17 @@ model Post {
   Description   String?
   pictures      String[]
   tags          String[]
-  user          User           @relation("posts of user", fields: [userID], references: [id])
+  user          User?           @relation("posts of user", fields: [userID], references: [id])
   userID        String
-  userWhoStared User           @relation("stared posts of user", fields: [userStaredID], references: [id])
-  userStaredID  String
+  userWhoStared User?           @relation("stared posts of user", fields: [userStaredID], references: [id])
+  userStaredID  String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   carPost       CarPost?
   housePost     HousePost?
   furniturePost FurniturePost?
-  admin         Admin          @relation(fields: [adminId], references: [id])
-  adminId       String
+  admin         Admin?          @relation(fields: [adminId], references: [id])
+  adminId       String?
 }
 
 model CarPost {
