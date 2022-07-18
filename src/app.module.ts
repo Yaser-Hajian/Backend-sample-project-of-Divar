@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { CarPostsModule } from './carPosts/car-posts.module';
 import { AdminsModule } from './admins/admins.module';
+import { HousePostsModule } from './housePosts/house-posts.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { AdminsModule } from './admins/admins.module';
     PrismaModule,
     UsersModule,
     CarPostsModule,
-    AdminsModule
+    AdminsModule,
+    HousePostsModule
   ],
   controllers: [],
   providers: [],
