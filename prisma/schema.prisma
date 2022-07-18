@@ -74,7 +74,7 @@ model HousePost {
   numberOfRooms       Int
   numberOfTotalFloors Int
   numberOfFloor       Int
-  hasElavator         Boolean
+  hasElevator         Boolean
   hasParking          Boolean
   post                Post    @relation(fields: [postID], references: [id])
   postID              String  @unique
