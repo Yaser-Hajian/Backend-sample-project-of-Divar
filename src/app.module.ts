@@ -15,7 +15,7 @@ import { HousePostsModule } from './housePosts/house-posts.module';
     UsersModule,
     CarPostsModule,
     AdminsModule,
-    HousePostsModule
+    HousePostsModule,
   ],
   controllers: [],
   providers: [],
