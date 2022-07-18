@@ -1,4 +1,4 @@
-import { Body, Controller, ForbiddenException, Get, Post, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { SignInDto } from 'src/auth/dto/sign-in.dto';
 import { AdminsService } from './admins.service';
@@ -27,6 +27,13 @@ export class AdminsController {
   @UseGuards(JwtAuthGuard)
   getPosts(@GetUser() admin : Admin){
     return this.adminsService.getAllRequestedPosts(admin);
+  }
+
+  @Put('/approve/:id')
+  @UseGuards(RoleGuard(Role.Admin))
+  @UseGuards(JwtAuthGuard)
+  approvePost(@Param('id')id : string , @GetUser()admin : Admin){
+    return this.adminsService.approvePost(id , admin)
   }
 
 }
