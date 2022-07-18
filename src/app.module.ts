@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { CarPostsModule } from './carPosts/car-posts.module';
 import { AdminsModule } from './admins/admins.module';
 import { HousePostsModule } from './housePosts/house-posts.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { HousePostsModule } from './housePosts/house-posts.module';
     CarPostsModule,
     AdminsModule,
     HousePostsModule,
+    PostsModule
   ],
   controllers: [],
   providers: [],
