@@ -4,6 +4,8 @@ import { SignInDto } from 'src/auth/dto/sign-in.dto';
 import { AdminsService } from './admins.service';
 import { Role } from 'src/globals/enums/role.enum';
 import RoleGuard from 'src/auth/guards/roles.guard';
+import { GetUser } from 'src/globals/decorators/get-user.decorator';
+import { Admin } from '@prisma/client';
 @Controller('admins')
 export class AdminsController {
   constructor(private adminsService : AdminsService) {}
@@ -17,8 +19,14 @@ export class AdminsController {
 
   @Post('signin')
   signin(@Body()dto: SignInDto) {
-    // return "hi"
     return this.adminsService.signin(dto)
+  }
+
+  @Get('/requests')
+  @UseGuards(RoleGuard(Role.Admin))
+  @UseGuards(JwtAuthGuard)
+  getPosts(@GetUser() admin : Admin){
+    return this.adminsService.getAllRequestedPosts(admin);
   }
 
 }

@@ -3,6 +3,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { SignInDto } from 'src/auth/dto/sign-in.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { Admin } from '@prisma/client';
 
 @Injectable()
 export class AdminsService {
@@ -24,6 +25,17 @@ export class AdminsService {
       throw new ForbiddenException('Credentials incorrect.');
     }
     return this.authService.getJwtToken(admin.id);
+  }
+
+  async getAllRequestedPosts(admin : Admin){
+    return this.prisma.admin.findUnique({
+      where : {
+        id : admin.id
+      },
+      select : {
+        incomingRequests : true
+      }
+    })
   }
 }
 
