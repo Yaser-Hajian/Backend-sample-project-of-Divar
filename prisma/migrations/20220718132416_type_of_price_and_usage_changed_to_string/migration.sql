@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "CarPost" ALTER COLUMN "usage" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Post" ALTER COLUMN "price" SET DATA TYPE TEXT;

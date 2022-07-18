@@ -37,7 +37,7 @@ model Post {
   id            String         @id @default(uuid())
   title         String
   city          String
-  price         BigInt?
+  price         String?
   Description   String?
   pictures      String[]
   tags          String[]
@@ -52,11 +52,12 @@ model Post {
   furniturePost FurniturePost?
   admin         Admin?          @relation(fields: [adminId], references: [id])
   adminId       String?
+  isApproved    Boolean         @default(false)
 }
 
 model CarPost {
   id             String  @id @default(uuid())
-  usage          BigInt
+  usage          String
   color          String
   model          String
   motorCondition String?
