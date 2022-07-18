@@ -12,7 +12,8 @@ export class UsersService {
         carPost : true
       },
       where : {
-        userID : user.id
+        userID : user.id ,
+        isApproved : true
       }
     });
     return carPosts;
@@ -24,7 +25,8 @@ export class UsersService {
           housePost : true
         },
         where : {
-          userID : user.id
+          userID : user.id,
+          isApproved : true
         }
       });
     return housePosts;
@@ -36,7 +38,8 @@ export class UsersService {
           furniturePost : true
         },
         where : {
-          userID : user.id
+          userID : user.id,
+          isApproved : true
         }
       });
     return furniturePosts;
@@ -50,7 +53,8 @@ export class UsersService {
             furniturePost:true,
         },
         where : {
-            userID : user.id
+            userID : user.id,
+            isApproved : true
           }
     })
     return allPosts;
