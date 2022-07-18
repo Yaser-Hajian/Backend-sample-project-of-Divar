@@ -33,7 +33,11 @@ export class AdminsService {
         id: admin.id,
       },
       select: {
-        incomingRequests: true,
+        incomingRequests: {
+          where : {
+            isApproved : false
+          }
+        }
       },
     });
   }
