@@ -23,34 +23,46 @@ model User {
   staredPosts Post[]   @relation("stared posts of user")
 }
 
+model Admin {
+  id                String @id @default(uuid())
+  name              String
+  username          String @unique
+  hash              String
+  responsibility    String
+  incommingRequests Post[]
+  role              Role   @default(ADMIN)
+}
+
 model Post {
-  id              String   @id @default(uuid())
-  title           String
-  city            String
-  price           BigInt?
-  Description     String?
-  pictures        String[]
-  tags            String[]
-  user            User     @relation("posts of user", fields: [userID], references: [id])
-  userID          String
-  userWhoStared   User     @relation("stared posts of user", fields: [userStaredID], references: [id])
-  userStaredID    String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id            String         @id @default(uuid())
+  title         String
+  city          String
+  price         BigInt?
+  Description   String?
+  pictures      String[]
+  tags          String[]
+  user          User           @relation("posts of user", fields: [userID], references: [id])
+  userID        String
+  userWhoStared User           @relation("stared posts of user", fields: [userStaredID], references: [id])
+  userStaredID  String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   carPost       CarPost?
   housePost     HousePost?
   furniturePost FurniturePost?
+  admin         Admin          @relation(fields: [adminId], references: [id])
+  adminId       String
 }
 
 model CarPost {
-  id             String @id @default(uuid())
+  id             String  @id @default(uuid())
   usage          BigInt
   color          String
   model          String
   motorCondition String?
   gearbox        String?
-  post           Post   @relation(fields: [postID], references: [id])
-  postID         String @unique
+  post           Post    @relation(fields: [postID], references: [id])
+  postID         String  @unique
 }
 
 model HousePost {
@@ -73,4 +85,9 @@ model FurniturePost {
   condition String
   post      Post   @relation(fields: [postID], references: [id])
   postID    String @unique
+}
+
+enum Role {
+  USER
+  ADMIN
 }
