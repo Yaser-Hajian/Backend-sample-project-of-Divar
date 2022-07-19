@@ -11,6 +11,16 @@ export class AdminsService {
     private prisma: PrismaService,
     private authService: AuthService,
   ) {}
+  async getMe(admin: Admin) {
+    const currentAdmin = await this.prisma.admin.findUnique({
+      where: {
+        username: admin.username,
+      },
+    });
+    delete currentAdmin.hash;
+    return currentAdmin;
+  }
+
   async signin(dto: SignInDto) {
     const admin = await this.prisma.admin.findUnique({
       where: {
@@ -34,35 +44,35 @@ export class AdminsService {
       },
       select: {
         incomingRequests: {
-          where : {
-            isApproved : false
-          }
-        }
+          where: {
+            isApproved: false,
+          },
+        },
       },
     });
   }
 
   async approvePost(postID: string, admin: Admin) {
     await this.prisma.admin.update({
-      where : {
-        id : admin.id
+      where: {
+        id: admin.id,
       },
-      data : {
-        incomingRequests : {
-          disconnect : {
-            id : postID
-          }
-        }
-      }
+      data: {
+        incomingRequests: {
+          disconnect: {
+            id: postID,
+          },
+        },
+      },
     });
     await this.prisma.post.update({
-      where : {
-        id : postID
+      where: {
+        id: postID,
       },
-      data:{
-        isApproved : true,
-        adminId : admin.id
-      }
-    })
+      data: {
+        isApproved: true,
+        adminId: admin.id,
+      },
+    });
   }
 }

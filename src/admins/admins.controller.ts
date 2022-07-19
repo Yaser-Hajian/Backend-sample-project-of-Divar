@@ -13,8 +13,8 @@ export class AdminsController {
   @Get('me')
   @UseGuards(RoleGuard(Role.Admin))
   @UseGuards(JwtAuthGuard)
-  getMe() {
-    return 'you are admin!';
+  getMe(@GetUser()admin : Admin) {
+    return this.adminsService.getMe(admin);
   }
 
   @Post('signin')
