@@ -3,11 +3,11 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
-import { CarPostsModule } from './carPosts/car-posts.module';
+import { CarPostsModule } from './car-posts/car-posts.module';
 import { AdminsModule } from './admins/admins.module';
-import { HousePostsModule } from './housePosts/house-posts.module';
+import { HousePostsModule } from './house-posts/house-posts.module';
 import { PostsModule } from './posts/posts.module';
-import { FurniturePostsModule } from './furniturePosts/furniture-posts.module';
+import { FurniturePostsModule } from './furniture-posts/furniture-posts.module';
 
 @Module({
   imports: [

@@ -18,16 +18,17 @@ export class AuthService {
   ) {}
 
   async signin(dto: SignInDto) {
+    const {username} = dto;
     const user = await this.prisma.user.findUnique({
-      where: {
-        username: dto.username,
-      },
+      where: { username },
     });
+
     if (!user) {
       throw new ForbiddenException('Credentials incorrect.');
     }
-    const passworMatche = await bcrypt.compare(dto.password, user.hash);
-    if (!passworMatche) {
+
+    const passwordMatch = await bcrypt.compare(dto.password, user.hash);
+    if (!passwordMatch) {
       throw new ForbiddenException('Credentials incorrect.');
     }
     return this.getJwtToken(user.id);

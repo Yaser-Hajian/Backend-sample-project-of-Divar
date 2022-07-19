@@ -24,13 +24,13 @@ model User {
 }
 
 model Admin {
-  id                String @id @default(uuid())
-  name              String
-  username          String @unique
-  hash              String
-  responsibility    String
+  id               String @id @default(uuid())
+  name             String
+  username         String @unique
+  hash             String
+  responsibility   String
   incomingRequests Post[]
-  role              Role   @default(ADMIN)
+  role             Role   @default(ADMIN)
 }
 
 model Post {
@@ -41,18 +41,18 @@ model Post {
   Description   String?
   pictures      String[]
   tags          String[]
-  user          User?           @relation("posts of user", fields: [userID], references: [id])
+  user          User?          @relation("posts of user", fields: [userID], references: [id])
   userID        String
-  userWhoStared User?           @relation("stared posts of user", fields: [userStaredID], references: [id])
+  userWhoStared User?          @relation("stared posts of user", fields: [userStaredID], references: [id])
   userStaredID  String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   carPost       CarPost?
   housePost     HousePost?
   furniturePost FurniturePost?
-  admin         Admin?          @relation(fields: [adminId], references: [id])
+  admin         Admin?         @relation(fields: [adminId], references: [id])
   adminId       String?
-  isApproved    Boolean         @default(false)
+  isApproved    Boolean        @default(false)
 }
 
 model CarPost {
