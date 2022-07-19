@@ -7,6 +7,7 @@ import { CarPostsModule } from './carPosts/car-posts.module';
 import { AdminsModule } from './admins/admins.module';
 import { HousePostsModule } from './housePosts/house-posts.module';
 import { PostsModule } from './posts/posts.module';
+import { FurniturePostsModule } from './furniturePosts/furniture-posts.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { PostsModule } from './posts/posts.module';
     CarPostsModule,
     AdminsModule,
     HousePostsModule,
-    PostsModule
+    PostsModule,
+    FurniturePostsModule
   ],
   controllers: [],
   providers: [],
